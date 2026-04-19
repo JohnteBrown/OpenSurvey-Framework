@@ -1,4 +1,4 @@
-# Survey Framework Prototype
+# OpenSurvey Framework
 
 Data-driven survey runtime built with Jekyll + CoffeeScript + Backbone + JSViews.
 
