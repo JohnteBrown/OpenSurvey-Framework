@@ -17,30 +17,49 @@ class SurveyView extends Backbone.View
 
   initialize: (options) ->
     @voiceService = options.voiceService
-    @template = $.templates("#survey-template")
+    @template = null
+    @templateError = null
+    try
+      @template = $.templates("#survey-template")
+    catch error
+      @templateError = error
     @listenTo(@model, "change", @render)
 
-  render: ->
-    html = @template.render(@model.toJSON(),
-      isVisible: (id) => @model.isVisible(id)
-      value: (id) =>
-        value = @model.get("responses")[id]
-        if Array.isArray(value) then "" else value
-      checked: (id, opt) =>
-        values = @model.get("responses")[id] or []
-        Array.isArray(values) and values.indexOf(opt) isnt -1
-    )
-
-    @$el.html(html)
-    @initSliders()
+  renderErrorState: (message) ->
+    @$el.html("<div class='alert alert-danger' role='alert'>#{message}</div>")
     @
+
+  render: ->
+    return @renderErrorState("Unable to render survey template.") unless @template?
+    return @renderErrorState("Unable to render survey template.") if @templateError?
+
+    try
+      html = @template.render(@model.toJSON(),
+        isVisible: (id) => @model.isVisible(id)
+        value: (id) =>
+          value = @model.get("responses")[id]
+          if Array.isArray(value) then "" else value
+        selected: (id, opt) =>
+          @model.get("responses")[id] is opt
+        checked: (id, opt) =>
+          values = @model.get("responses")[id] or []
+          Array.isArray(values) and values.indexOf(opt) isnt -1
+      )
+
+      @$el.html(html)
+      @initSliders()
+      @
+    catch error
+      @renderErrorState("Unable to render survey questions.")
 
   initSliders: ->
     view = @
+    return unless $.fn?.slider?
     @$el.find(".rating-slider").each ->
       sliderEl = $(this)
       qid = sliderEl.attr("id").replace("-slider", "")
       input = view.$el.find("##{qid}")
+      return unless input.length
       currentValue = Number(input.val() or 3)
 
       sliderEl.slider
@@ -75,6 +94,7 @@ class SurveyView extends Backbone.View
   readCurrentQuestion: ->
     firstVisible = (@model.get("questions") or []).find((question) => @model.isVisible(question.id))
     return unless firstVisible?
+    return unless @voiceService?.readText?
     @voiceService.readText(firstVisible.label)
 
   handleKeyboardNav: (event) ->

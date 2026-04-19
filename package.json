@@ -18,7 +18,7 @@
     "backbone": "^1.6.1",
     "bootstrap": "^5.3.8",
     "core-js": "^3.49.0",
-    "jquery": "^4.0.0",
+    "jquery": "^3.7.1",
     "jquery-ui-dist": "^1.13.3",
     "jsrender": "^1.0.16",
     "jsviews": "^1.0.16",

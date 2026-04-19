@@ -3,6 +3,11 @@
     <div class="card-body">
       <h2 class="h5 mb-2">{{:title}}</h2>
       <p class="text-muted mb-3">{{:description}}</p>
+      {{if !questions || !questions.length}}
+        <div class="alert alert-warning mb-3" role="alert">
+          This survey has no configured questions yet.
+        </div>
+      {{/if}}
       {{for questions}}
         {{if ~isVisible(#data.id)}}
           <div class="mb-3 question-block" data-question-id="{{:id}}">
@@ -17,7 +22,7 @@
               <select class="form-select survey-input" id="{{:id}}" data-type="{{:type}}">
                 <option value="">Select one</option>
                 {{for options}}
-                  <option value="{{:#data}}" {{if #data === ~value(#parent.data.id)}}selected{{/if}}>{{:#data}}</option>
+                  <option value="{{:#data}}" {{if ~selected(#parent.parent.data.id, #data)}}selected{{/if}}>{{:#data}}</option>
                 {{/for}}
               </select>
             {{else type === 'rating'}}
@@ -28,7 +33,7 @@
               <div class="d-flex flex-column gap-2">
                 {{for options}}
                   <label class="form-check">
-                    <input class="form-check-input survey-checkbox" type="checkbox" value="{{:#data}}" data-question-id="{{:#parent.data.id}}" {{if ~checked(#parent.data.id, #data)}}checked{{/if}}>
+                    <input class="form-check-input survey-checkbox" type="checkbox" value="{{:#data}}" data-question-id="{{:#parent.parent.data.id}}" {{if ~checked(#parent.parent.data.id, #data)}}checked{{/if}}>
                     <span class="form-check-label">{{:#data}}</span>
                   </label>
                 {{/for}}

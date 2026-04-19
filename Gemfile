@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "~> 3.3.6"
+ruby "~> 3.2.4"
 
 gem "jekyll", "~> 4.3"
 gem 'jekyll-admin', group: :jekyll_plugins

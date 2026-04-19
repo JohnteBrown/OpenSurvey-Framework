@@ -18,3 +18,17 @@ QUnit.test("loads survey metadata and visibility defaults", (assert) => {
   assert.true(survey.isVisible("q1"));
   assert.false(survey.isVisible("q2"));
 });
+
+QUnit.test("supports option-based question structures for runtime rendering", (assert) => {
+  const survey = new SurveyModel({
+    id: "options-survey",
+    questions: [
+      { id: "q_select", type: "multiple_choice", label: "Select one", options: ["A", "B"] },
+      { id: "q_check", type: "checkbox", label: "Pick many", options: ["X", "Y"] }
+    ]
+  });
+
+  const questions = survey.get("questions");
+  assert.equal(questions[0].options.length, 2);
+  assert.equal(questions[1].options[0], "X");
+});

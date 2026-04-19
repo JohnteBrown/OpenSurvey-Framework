@@ -1,7 +1,7 @@
 id: onboarding-experience
 title: Team Onboarding Experience Survey
 description: Help us understand how your first weeks on the team are going.
-voicePrompts: false
+voicePrompts: true
 questions:
   - id: full_name
     type: text
@@ -16,9 +16,9 @@ questions:
     label: Did you receive all required tools and access?
     required: true
     options:
-      - "Yes"
-      - "Partially"
-      - "No"
+      - 'Yes'
+      - Partially
+      - 'No'
   - id: missing_tools
     type: checkbox
     label: Which access/tools are still missing?
@@ -30,7 +30,7 @@ questions:
     condition:
       dependsOn: tools_access
       operator: not_equals
-      value: "Yes"
+      value: 'Yes'
   - id: manager_support
     type: rating
     label: Rate your manager support level (1-5)
