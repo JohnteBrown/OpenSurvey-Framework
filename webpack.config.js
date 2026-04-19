@@ -23,7 +23,7 @@ module.exports = {
       },
 
       // =========================
-      // JS (your app + bootstrap)
+      // JS 
       // =========================
       {
         test: /\.js$/,
@@ -33,7 +33,7 @@ module.exports = {
       },
 
       // =========================
-      // CSS (FIXED: node_modules + normal CSS)
+      // CSS 
       // =========================
       {
         test: /\.css$/,
@@ -44,7 +44,7 @@ module.exports = {
       },
 
       // =========================
-      // LESS (your custom styles)
+      // LESS 
       // =========================
       {
         test: /\.less$/,
