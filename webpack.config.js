@@ -14,16 +14,26 @@ module.exports = {
   module: {
     rules: [
       // =========================
-      // CoffeeScript
+      // CoffeeScript (FIXED for async/await support)
       // =========================
       {
         test: /\.coffee$/,
         include: path.resolve(__dirname, "src/coffee"),
-        use: ["coffee-loader"]
+        use: [
+          {
+            loader: "babel-loader",
+            options: {
+              presets: ["@babel/preset-env"]
+            }
+          },
+          {
+            loader: "coffee-loader"
+          }
+        ]
       },
 
       // =========================
-      // JS 
+      // JS
       // =========================
       {
         test: /\.js$/,
@@ -33,7 +43,7 @@ module.exports = {
       },
 
       // =========================
-      // CSS 
+      // CSS
       // =========================
       {
         test: /\.css$/,
@@ -44,7 +54,7 @@ module.exports = {
       },
 
       // =========================
-      // LESS 
+      // LESS
       // =========================
       {
         test: /\.less$/,

@@ -16,6 +16,7 @@
   "license": "ISC",
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "async": "^3.2.6",
     "backbone": "^1.6.1",
     "bootstrap": "^5.3.8",
     "core-js": "^3.49.0",
