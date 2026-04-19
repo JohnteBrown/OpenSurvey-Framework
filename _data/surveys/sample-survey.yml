@@ -1,7 +1,7 @@
 id: onboarding-experience
 title: Team Onboarding Experience Survey
 description: Help us understand how your first weeks on the team are going.
-voicePrompts: true
+voicePrompts: false
 questions:
   - id: full_name
     type: text
