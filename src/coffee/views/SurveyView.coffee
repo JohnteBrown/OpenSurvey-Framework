@@ -1,11 +1,14 @@
 $ = require("jquery")
 Backbone = require("backbone")
-jsrender = require("jsrender")
-require("jsviews")
+
+require("jsrender")
+require("jsviews")($)
+
 ExportService = require("../services/ExportService")
 CopyPoisonService = require("../services/CopyPoisonService")
 
 class SurveyView extends Backbone.View
+
   events:
     "input .survey-input": "handleInput"
     "change .survey-checkbox": "handleCheckboxChange"
@@ -19,56 +22,87 @@ class SurveyView extends Backbone.View
     @voiceService = options.voiceService
     @template = null
     @templateError = null
+
     try
-      @template = $.templates("#survey-template")
-    catch error
-      @templateError = error
+      tplEl = $("#survey-template")
+
+      if !tplEl.length
+        throw new Error("Missing #survey-template in DOM")
+
+      templateHtml = tplEl.html()
+      @template = $.templates(templateHtml)
+
+    catch err
+      @templateError = err
+
     @listenTo(@model, "change", @render)
 
   renderErrorState: (message) ->
-    @$el.html("<div class='alert alert-danger' role='alert'>#{message}</div>")
+    @$el.html("""
+      <div class='alert alert-danger' role='alert'>
+        #{message}
+      </div>
+    """)
     @
 
   render: ->
-    return @renderErrorState("Unable to render survey template.") unless @template?
-    return @renderErrorState("Unable to render survey template.") if @templateError?
+    if @templateError?
+      return @renderErrorState("Template error: " + @templateError.message)
+
+    if !@template?
+      return @renderErrorState("Survey template not available.")
 
     try
-      html = @template.render(@model.toJSON(),
-        isVisible: (id) => @model.isVisible(id)
+      data = @model.toJSON()
+      responses = data.responses or {}
+
+      html = @template.render(data,
+        isVisible: (id) =>
+          @model.isVisible(id)
+
         value: (id) =>
-          value = @model.get("responses")[id]
-          if Array.isArray(value) then "" else value
+          v = responses[id]
+          if Array.isArray(v) then "" else v
+
         selected: (id, opt) =>
-          @model.get("responses")[id] is opt
+          responses[id] is opt
+
         checked: (id, opt) =>
-          values = @model.get("responses")[id] or []
-          Array.isArray(values) and values.indexOf(opt) isnt -1
+          vals = responses[id] or []
+          Array.isArray(vals) and vals.indexOf(opt) isnt -1
       )
 
       @$el.html(html)
       @initSliders()
       @
-    catch error
+
+    catch err
+      console.error("Render error:", err)
       @renderErrorState("Unable to render survey questions.")
 
   initSliders: ->
     view = @
     return unless $.fn?.slider?
+
     @$el.find(".rating-slider").each ->
       sliderEl = $(this)
-      qid = sliderEl.attr("id").replace("-slider", "")
+      qid = sliderEl.attr("id")?.replace("-slider", "")
+      return unless qid?
+
       input = view.$el.find("##{qid}")
       return unless input.length
+
       currentValue = Number(input.val() or 3)
 
       sliderEl.slider
         min: 1
         max: 5
         value: currentValue
-        slide: (_event, ui) ->
+        slide: (_e, ui) ->
           input.val(ui.value).trigger("input")
-          input.closest(".question-block").find(".rating-display").text(ui.value)
+          input.closest(".question-block")
+            .find(".rating-display")
+            .text(ui.value)
 
   handleInput: (event) ->
     target = $(event.currentTarget)
@@ -77,9 +111,11 @@ class SurveyView extends Backbone.View
   handleCheckboxChange: (event) ->
     checkbox = $(event.currentTarget)
     questionId = checkbox.data("question-id")
+
     checkedValues = []
     @$el.find(".survey-checkbox[data-question-id='#{questionId}']:checked").each ->
       checkedValues.push($(this).val())
+
     @model.setResponse(questionId, checkedValues)
 
   handleSubmit: ->
@@ -92,18 +128,25 @@ class SurveyView extends Backbone.View
     CopyPoisonService.copy(ExportService.toCSV(@model))
 
   readCurrentQuestion: ->
-    firstVisible = (@model.get("questions") or []).find((question) => @model.isVisible(question.id))
+    questions = @model.get("questions") or []
+
+    firstVisible = questions.find (q) =>
+      @model.isVisible(q.id)
+
     return unless firstVisible?
     return unless @voiceService?.readText?
+
     @voiceService.readText(firstVisible.label)
 
   handleKeyboardNav: (event) ->
     return unless event.key is "Enter"
+
     inputs = @$el.find(".survey-input:visible")
     index = inputs.index(event.currentTarget)
-    nextInput = inputs.get(index + 1)
-    if nextInput?
-      nextInput.focus()
+    next = inputs.get(index + 1)
+
+    if next?
+      next.focus()
       event.preventDefault()
 
 module.exports = SurveyView

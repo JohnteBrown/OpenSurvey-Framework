@@ -14,26 +14,26 @@ class CopyPoisonService
 
       script = document.createElement("script")
       script.src = @scriptUrl
-      script.async = true
       script.onload = -> resolve(true)
       script.onerror = -> resolve(false)
       document.head.appendChild(script)
 
     @_loadPromise
 
-  @copy: async (text) ->
-    await @ensureLoaded()
+  @copy: (text) ->
+  doCopy = ->
+    CopyPoisonService.ensureLoaded().then ->
+      if navigator?.clipboard?.writeText?
+        return navigator.clipboard.writeText(text).then -> true
 
-    if navigator?.clipboard?.writeText?
-      await navigator.clipboard.writeText(text)
-      return true
+      temp = document.createElement("textarea")
+      temp.value = text
+      document.body.appendChild(temp)
+      temp.select()
+      success = document.execCommand("copy")
+      document.body.removeChild(temp)
+      success
 
-    temp = document.createElement("textarea")
-    temp.value = text
-    document.body.appendChild(temp)
-    temp.select()
-    success = document.execCommand("copy")
-    document.body.removeChild(temp)
-    success
+  doCopy()
 
 module.exports = CopyPoisonService
