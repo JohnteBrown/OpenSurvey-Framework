@@ -9,7 +9,18 @@
     "lint": "npm run lint:coffee",
     "lint:coffee": "coffeelint --file coffeelint.json src/coffee",
     "test": "qunit --require coffeescript/register \"test/**/*.test.js\"",
-    "serve": "bundle exec jekyll serve"
+    "serve": "bundle exec jekyll serve",
+    "test:coverage": "nyc npm test"
+  },
+  "nyc": {
+    "reporter": ["text", "lcov", "html"],
+    "exclude": [
+      "node_modules",
+      "_site",
+      "assets",
+      "test",
+      "qunit"
+    ]
   },
   "keywords": [],
   "author": "Survey Framework Prototype",
@@ -38,6 +49,7 @@
     "less": "^4.6.4",
     "less-loader": "^12.3.2",
     "mini-css-extract-plugin": "^2.10.2",
+    "nyc": "^18.0.0",
     "qunit": "^2.25.0",
     "style-loader": "^4.0.0",
     "webpack": "^5.106.2",

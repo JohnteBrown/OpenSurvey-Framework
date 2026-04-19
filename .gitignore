@@ -3,6 +3,10 @@ node_modules/
 _site/
 .jekyll-cache/
 
+# coverage
+coverage/
+.nyc_output/
+
 
 # OSX
 .DS_Store
