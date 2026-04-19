@@ -1,7 +1,8 @@
+![codecov](https://codecov.io/gh/johntebrown/OpenSurvey-Framework/graph/badge.svg?token=9fd4cd33-1efd-4611-917e-5397e1275582)
+
 # OpenSurvey Framework
 
 A Data-driven survey runtime built with Jekyll + CoffeeScript + Backbone + JSViews.
-
 
 ### Demo
 
