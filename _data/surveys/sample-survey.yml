@@ -1,0 +1,48 @@
+id: onboarding-experience
+title: Team Onboarding Experience Survey
+description: Help us understand how your first weeks on the team are going.
+voicePrompts: false
+questions:
+  - id: full_name
+    type: text
+    label: What is your full name?
+    required: true
+  - id: role_clarity
+    type: rating
+    label: How clear are your role expectations? (1-5)
+    required: true
+  - id: tools_access
+    type: multiple_choice
+    label: Did you receive all required tools and access?
+    required: true
+    options:
+      - "Yes"
+      - "Partially"
+      - "No"
+  - id: missing_tools
+    type: checkbox
+    label: Which access/tools are still missing?
+    options:
+      - Repository access
+      - Project management board
+      - Communication channels
+      - Development environment
+    condition:
+      dependsOn: tools_access
+      operator: not_equals
+      value: "Yes"
+  - id: manager_support
+    type: rating
+    label: Rate your manager support level (1-5)
+    required: true
+  - id: confidence
+    type: multiple_choice
+    label: How confident are you in your onboarding progress?
+    required: true
+    options:
+      - Very confident
+      - Somewhat confident
+      - Not confident yet
+  - id: comments
+    type: text
+    label: Any additional onboarding feedback?

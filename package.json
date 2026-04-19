@@ -1,0 +1,44 @@
+{
+  "name": "surveyframework",
+  "version": "1.0.0",
+  "description": "Modular survey framework prototype powered by Jekyll and CoffeeScript.",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "build:dev": "webpack --mode development",
+    "lint": "npm run lint:coffee",
+    "lint:coffee": "coffeelint --file coffeelint.json src/coffee",
+    "test": "qunit --require coffeescript/register \"test/**/*.test.js\""
+  },
+  "keywords": [],
+  "author": "Survey Framework Prototype",
+  "license": "ISC",
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "backbone": "^1.6.1",
+    "bootstrap": "^5.3.8",
+    "core-js": "^3.49.0",
+    "jquery": "^4.0.0",
+    "jquery-ui-dist": "^1.13.3",
+    "jsrender": "^1.0.16",
+    "jsviews": "^1.0.16",
+    "regenerator-runtime": "^0.14.1",
+    "underscore": "^1.13.8"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.29.0",
+    "@babel/preset-env": "^7.29.2",
+    "babel-loader": "^10.1.1",
+    "coffee-loader": "^5.0.0",
+    "coffeelint": "^2.1.0",
+    "coffeescript": "^2.7.0",
+    "css-loader": "^7.1.4",
+    "less": "^4.6.4",
+    "less-loader": "^12.3.2",
+    "mini-css-extract-plugin": "^2.10.2",
+    "qunit": "^2.25.0",
+    "style-loader": "^4.0.0",
+    "webpack": "^5.106.2",
+    "webpack-cli": "^7.0.2"
+  }
+}

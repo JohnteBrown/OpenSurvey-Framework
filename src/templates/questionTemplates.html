@@ -1,0 +1,52 @@
+<script id="survey-template" type="text/x-jsrender">
+  <form id="dynamic-survey-form" class="card shadow-sm">
+    <div class="card-body">
+      <h2 class="h5 mb-2">{{:title}}</h2>
+      <p class="text-muted mb-3">{{:description}}</p>
+      {{for questions}}
+        {{if ~isVisible(#data.id)}}
+          <div class="mb-3 question-block" data-question-id="{{:id}}">
+            <label class="form-label fw-semibold" for="{{:id}}">
+              {{:label}}
+              {{if required}}<span class="text-danger">*</span>{{/if}}
+            </label>
+
+            {{if type === 'text'}}
+              <input class="form-control survey-input" type="text" id="{{:id}}" data-type="{{:type}}" value="{{:~value(id)}}">
+            {{else type === 'multiple_choice'}}
+              <select class="form-select survey-input" id="{{:id}}" data-type="{{:type}}">
+                <option value="">Select one</option>
+                {{for options}}
+                  <option value="{{:#data}}" {{if #data === ~value(#parent.data.id)}}selected{{/if}}>{{:#data}}</option>
+                {{/for}}
+              </select>
+            {{else type === 'rating'}}
+              <div class="rating-slider" id="{{:id}}-slider"></div>
+              <input type="hidden" class="survey-input rating-value" id="{{:id}}" data-type="{{:type}}" value="{{:~value(id) || 3}}">
+              <small class="text-muted">Current: <span class="rating-display">{{:~value(id) || 3}}</span></small>
+            {{else type === 'checkbox'}}
+              <div class="d-flex flex-column gap-2">
+                {{for options}}
+                  <label class="form-check">
+                    <input class="form-check-input survey-checkbox" type="checkbox" value="{{:#data}}" data-question-id="{{:#parent.data.id}}" {{if ~checked(#parent.data.id, #data)}}checked{{/if}}>
+                    <span class="form-check-label">{{:#data}}</span>
+                  </label>
+                {{/for}}
+              </div>
+            {{/if}}
+          </div>
+        {{/if}}
+      {{/for}}
+      <div class="d-flex gap-2 flex-wrap">
+        <button type="button" class="btn btn-primary" id="submit-survey">Submit</button>
+        <button type="button" class="btn btn-outline-secondary" id="copy-json">Copy JSON</button>
+        <button type="button" class="btn btn-outline-secondary" id="copy-csv">Copy CSV</button>
+        <button type="button" class="btn btn-outline-info" id="voice-read">Read Current Question</button>
+      </div>
+    </div>
+  </form>
+  <section class="mt-3">
+    <h3 class="h6">Submission Output</h3>
+    <pre class="json-output p-3 bg-light border rounded">{{:submissionOutput}}</pre>
+  </section>
+</script>

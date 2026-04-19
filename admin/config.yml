@@ -1,0 +1,35 @@
+backend:
+  name: git-gateway
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "surveys"
+    label: "Surveys"
+    folder: "_data/surveys"
+    create: true
+    format: "yml"
+    extension: "yml"
+    fields:
+      - { label: "Survey ID", name: "id", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", widget: "text" }
+      - { label: "Enable Voice Prompts", name: "voicePrompts", widget: "boolean", required: false, default: false }
+      - label: "Questions"
+        name: "questions"
+        widget: "list"
+        fields:
+          - { label: "ID", name: "id", widget: "string" }
+          - { label: "Type", name: "type", widget: "select", options: ["text", "multiple_choice", "rating", "checkbox"] }
+          - { label: "Label", name: "label", widget: "string" }
+          - { label: "Required", name: "required", widget: "boolean", required: false, default: false }
+          - { label: "Options", name: "options", widget: "list", required: false }
+          - label: "Condition"
+            name: "condition"
+            widget: "object"
+            required: false
+            fields:
+              - { label: "Depends On", name: "dependsOn", widget: "string", required: false }
+              - { label: "Operator", name: "operator", widget: "select", required: false, options: ["equals", "not_equals", "includes", "not_includes"] }
+              - { label: "Value", name: "value", widget: "string", required: false }

@@ -1,0 +1,17 @@
+title: Survey Framework Prototype
+description: Data-driven survey framework powered by Jekyll and CoffeeScript
+baseurl: ""
+url: ""
+markdown: kramdown
+plugins:
+  - jekyll-admin
+  - jekyll-feed
+collections:
+  surveys:
+    output: true
+defaults:
+  - scope:
+      path: ""
+      type: surveys
+    values:
+      layout: default
