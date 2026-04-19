@@ -2,17 +2,17 @@
 
 # OpenSurvey Framework
 
-A Data-driven survey runtime built with Jekyll + CoffeeScript + Backbone + JSViews.
+A Data-driven survey runtime built with Jekyll + CoffeeScript + Backbone + JSViews. with api coming soon))
 
-### Demo
+## Demo
 
-here is the [demo](https://johntebrown.github.io/OpenSurvey-Framework/) of OpenSurvey Framework, perfect for integrating with a Headless CMS, **Read-Aloud is disabled for the demo**
+here is the [demo](https://johntebrown.github.io/OpenSurvey-Framework/) of OpenSurvey Framework, perfect for integrating with a Headless CMS, **Read-Aloud is disabled on the demo**
 
 ## Run
 
 1. Use the project Ruby version (`3.3.x`):
    - `rbenv install -s 3.2.4&& rbenv local 3.2.4`
-   - or set `3.3.6` via your `asdf` Ruby plugin
+   - or set `3.2.4` via your `asdf` Ruby plugin
 2. Ensure Xcode command line tools are installed:
    - `xcode-select --install`
 3. Install Ruby gems:
