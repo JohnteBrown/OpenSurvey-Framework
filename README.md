@@ -5,7 +5,7 @@ Data-driven survey runtime built with Jekyll + CoffeeScript + Backbone + JSViews
 ## Run
 
 1. Use the project Ruby version (`3.3.x`):
-   - `rbenv install -s 3.3.6 && rbenv local 3.3.6`
+   - `rbenv install -s 3.2.4&& rbenv local 3.2.4`
    - or set `3.3.6` via your `asdf` Ruby plugin
 2. Ensure Xcode command line tools are installed:
    - `xcode-select --install`
