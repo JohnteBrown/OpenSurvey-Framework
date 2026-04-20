@@ -21,8 +21,7 @@ class CopyPoisonService
     @_loadPromise
 
   @copy: (text) ->
-  doCopy = ->
-    CopyPoisonService.ensureLoaded().then ->
+    CopyPoisonService.ensureLoaded().then =>
       if navigator?.clipboard?.writeText?
         return navigator.clipboard.writeText(text).then -> true
 
@@ -33,7 +32,5 @@ class CopyPoisonService
       success = document.execCommand("copy")
       document.body.removeChild(temp)
       success
-
-  doCopy()
 
 module.exports = CopyPoisonService
