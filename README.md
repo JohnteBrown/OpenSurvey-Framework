@@ -11,8 +11,10 @@ here is the [demo](https://johntebrown.github.io/OpenSurvey-Framework/) of OpenS
 ## Run
 
 1. Use the project Ruby version (`3.3.x`):
-   - `rbenv install -s 3.2.4&& rbenv local 3.2.4`
+   - `rbenv install -s 3.2.4 && rbenv local 3.2.4`
    - or set `3.2.4` via your `asdf` Ruby plugin
+   > [!NOTE]  
+   > You only have to worry about Xcode if you are on Dawin, if your on Linux/Windows feel free to carry on
 2. Ensure Xcode command line tools are installed:
    - `xcode-select --install`
 3. Install Ruby gems:
