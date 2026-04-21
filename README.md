@@ -13,14 +13,17 @@ here is the [demo](https://johntebrown.github.io/OpenSurvey-Framework/) of OpenS
 1. Use the project Ruby version (`3.3.x`):
    - `rbenv install -s 3.2.4 && rbenv local 3.2.4`
    - or set `3.2.4` via your `asdf` Ruby plugin
-  ----
 
-   > [!IMPORTANT]
-   > Ignore this step if your not on Darwin.
+---
+
+> [!IMPORTANT]
+> Ignore this step if your not on Darwin.
 
 2. Ensure Xcode command line tools are installed:
    - `xcode-select --install`
+
 ---
+
 3. Install Ruby gems:
    - `bundle install`
 4. Install Node dependencies:
@@ -28,13 +31,14 @@ here is the [demo](https://johntebrown.github.io/OpenSurvey-Framework/) of OpenS
 5. Build frontend assets:
    - `npm run build:dev`
 6. Serve Jekyll:
-   - `bundle exec jekyll serve`
+   - `npm run serve`
 
 Open `http://127.0.0.1:4000/`.
 
-## Tests
+## Testing & Coverage
 
 - `npm test`
+- `npm run test:coverage`
 
 ## Survey Content
 
