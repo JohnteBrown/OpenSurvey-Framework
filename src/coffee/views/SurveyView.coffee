@@ -141,12 +141,14 @@ class SurveyView extends Backbone.View
   handleKeyboardNav: (event) ->
     return unless event.key is "Enter"
 
+    event.preventDefault()
+    event.stopPropagation()
+
     inputs = @$el.find(".survey-input:visible")
     index = inputs.index(event.currentTarget)
     next = inputs.get(index + 1)
 
     if next?
       next.focus()
-      event.preventDefault()
 
 module.exports = SurveyView

@@ -10,7 +10,7 @@ here is the [demo](https://johntebrown.github.io/OpenSurvey-Framework/) of OpenS
 
 ## Run
 
-1. Use the project Ruby version (`3.3.x`):
+1. Use the project Ruby version (`3.2.x`):
    - `rbenv install -s 3.2.4 && rbenv local 3.2.4`
    - or set `3.2.4` via your `asdf` Ruby plugin
 
@@ -48,4 +48,4 @@ Open `http://127.0.0.1:4000/`.
 ## Notes
 
 - The export copy utility uses a local `CopyPoisonService` adapter to keep the framework modular when an external `copypoison` npm package is unavailable.
-- If `bundle install` fails building `eventmachine` on macOS, verify you are not using Ruby 4.x for this project. `jekyll` and transitive native gems are currently more reliable on Ruby `3.3.x`.
+- If `bundle install` fails building `eventmachine` on macOS, verify you are not using Ruby 4.x for this project. `jekyll` and transitive native gems are currently more reliable on Ruby `3.2.x`.
