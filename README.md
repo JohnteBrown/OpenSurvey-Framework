@@ -17,7 +17,7 @@ here is the [demo](https://johntebrown.github.io/OpenSurvey-Framework/) of OpenS
 ---
 
 > [!IMPORTANT]
-> Ignore this step if your not on Darwin.
+> Ignore this step if you're not on Darwin.
 
 2. Ensure Xcode command line tools are installed:
    - `xcode-select --install`
@@ -25,13 +25,19 @@ here is the [demo](https://johntebrown.github.io/OpenSurvey-Framework/) of OpenS
 ---
 
 3. Install Ruby gems:
+
    - `bundle install`
 4. Install Node dependencies:
+
    - `npm install`
 5. Build frontend assets:
-   - `npm run build:dev`
-6. Serve Jekyll:
-   - `npm run serve`
+
+   - `npm run build`
+     - `npm run build:dev` (dev)
+
+   6. Serve Jekyll:
+
+      - `npm run serve`
 
 Open `http://127.0.0.1:4000/`.
 
@@ -47,5 +53,5 @@ Open `http://127.0.0.1:4000/`.
 
 ## Notes
 
-- The export copy utility uses a local `CopyPoisonService` adapter to keep the framework modular when an external `copypoison` npm package is unavailable.
-- If `bundle install` fails building `eventmachine` on macOS, verify you are not using Ruby 4.x for this project. `jekyll` and transitive native gems are currently more reliable on Ruby `3.2.x`.
+- The export copy utility uses a local `CopyPoisonService` adapter to keep the framework modular since the external `copypoison` package is unavailable on npm.
+- If `bundle install` fails building `eventmachine` on Darwin, verify you are not using Ruby 4.x for this project. `jekyll` and transitive native gems are currently more reliable on Ruby `3.2.x`.
